@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <CodeAnalysisRuleSet>..\..\Analysers.ruleset</CodeAnalysisRuleSet>
+    <PackageId>Enable.Extensions.Configuration</PackageId>
+    <Title>Enable Configuration Extensions</Title>
+    <Description>Configuration extensions for Microsoft.Extensions.Configuration.</Description>
+    <Authors>Enable · enable.com</Authors>
+    <PackageProjectUrl>https://github.com/EnableSoftware/Enable.Configuration.Extensions</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/EnableSoftware/Enable.Configuration.Extensions/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://github.com/EnableSoftware.png</PackageIconUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.0.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>
