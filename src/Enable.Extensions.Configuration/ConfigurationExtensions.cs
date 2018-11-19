@@ -119,7 +119,7 @@ namespace Enable.Extensions.Configuration
 
         private static FileInfo GetDevelopmentEnvironmentFileInfo(string fileName)
         {
-            var assemblyLocationUri = new Uri(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            var assemblyLocationUri = new Uri(Assembly.GetEntryAssembly().GetName().CodeBase);
             var assemblyLocation = assemblyLocationUri.LocalPath;
             var directoryPath = Path.GetDirectoryName(assemblyLocation);
             var directory = new DirectoryInfo(directoryPath);
