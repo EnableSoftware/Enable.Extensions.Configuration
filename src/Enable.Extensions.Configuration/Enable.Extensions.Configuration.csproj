@@ -7,8 +7,8 @@
     <Title>Enable Configuration Extensions</Title>
     <Description>Configuration extensions for Microsoft.Extensions.Configuration.</Description>
     <Authors>Enable · enable.com</Authors>
-    <PackageProjectUrl>https://github.com/EnableSoftware/Enable.Configuration.Extensions</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/EnableSoftware/Enable.Configuration.Extensions/main/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/EnableSoftware/Enable.Extensions.Configuration</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/EnableSoftware/Enable.Extensions.Configuration/main/LICENSE</PackageLicenseUrl>
     <PackageIconUrl>https://github.com/EnableSoftware.png</PackageIconUrl>
   </PropertyGroup>
 
