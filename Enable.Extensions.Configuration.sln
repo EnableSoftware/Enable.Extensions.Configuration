@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enable.Extensions.Configura
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{752AF8F4-59CE-49CB-8418-56A99351C446}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enable.Extensions.Configuration.UnitTests", "test\Enable.Extensions.Configuration.UnitTests\Enable.Extensions.Configuration.UnitTests.csproj", "{CF6C7908-8E4A-4C56-8DA3-9F7EF76A2C16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enable.Extensions.Configuration.UnitTests", "test\Enable.Extensions.Configuration.UnitTests\Enable.Extensions.Configuration.UnitTests.csproj", "{CF6C7908-8E4A-4C56-8DA3-9F7EF76A2C16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D2E18CD9-E5F4-43AC-8417-5C37CCA17A26}"
+	ProjectSection(SolutionItems) = preProject
+		Analysers.ruleset = Analysers.ruleset
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
