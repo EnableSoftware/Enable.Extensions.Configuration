@@ -25,7 +25,7 @@ public static class ConfigurationExtensions
             Branch.Value,
             BranchPath.Value,
             DatabaseServer.Value,
-            Environment.MachineName.ToLowerInvariant());
+            Environment.MachineName);
 
         foreach (var entry in configuration.AsEnumerable())
         {
