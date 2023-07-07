@@ -1,22 +1,40 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <CodeAnalysisRuleSet>..\..\Analysers.ruleset</CodeAnalysisRuleSet>
-    <PackageId>Enable.Extensions.Configuration</PackageId>
-    <Title>Enable Configuration Extensions</Title>
-    <Description>Configuration extensions for Microsoft.Extensions.Configuration.</Description>
-    <Authors>Enable · enable.com</Authors>
-    <PackageProjectUrl>https://github.com/EnableSoftware/Enable.Configuration.Extensions</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/EnableSoftware/Enable.Configuration.Extensions/main/LICENSE</PackageLicenseUrl>
-    <PackageIconUrl>https://github.com/EnableSoftware.png</PackageIconUrl>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>latest</LangVersion>
+        <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+        <CodeAnalysisRuleSet>..\..\Analysers.ruleset</CodeAnalysisRuleSet>
+        <PackageId>Enable.Extensions.Configuration</PackageId>
+        <Title>Enable Configuration Extensions</Title>
+        <Description>Configuration extensions for Microsoft.Extensions.Configuration.</Description>
+        <Authors>Enable · enable.com</Authors>
+        <RepositoryUrl>https://github.com/EnableSoftware/Enable.Extensions.Configuration.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageIcon>icon.png</PackageIcon>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.0.0" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.0.0" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.0.2">
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>$(AssemblyName).UnitTests</_Parameter1>
+        </AssemblyAttribute>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+    </ItemGroup>
 
 </Project>

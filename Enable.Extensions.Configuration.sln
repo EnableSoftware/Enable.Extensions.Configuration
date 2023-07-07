@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1E0A1F54-8F77-4F78-AA81-7177983BF13F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enable.Extensions.Configuration", "src\Enable.Extensions.Configuration\Enable.Extensions.Configuration.csproj", "{88D7D73E-3583-4A0F-90A4-07BAF028558B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{752AF8F4-59CE-49CB-8418-56A99351C446}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enable.Extensions.Configuration.UnitTests", "test\Enable.Extensions.Configuration.UnitTests\Enable.Extensions.Configuration.UnitTests.csproj", "{CF6C7908-8E4A-4C56-8DA3-9F7EF76A2C16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +21,17 @@ Global
 		{88D7D73E-3583-4A0F-90A4-07BAF028558B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88D7D73E-3583-4A0F-90A4-07BAF028558B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88D7D73E-3583-4A0F-90A4-07BAF028558B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF6C7908-8E4A-4C56-8DA3-9F7EF76A2C16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF6C7908-8E4A-4C56-8DA3-9F7EF76A2C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF6C7908-8E4A-4C56-8DA3-9F7EF76A2C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF6C7908-8E4A-4C56-8DA3-9F7EF76A2C16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{88D7D73E-3583-4A0F-90A4-07BAF028558B} = {1E0A1F54-8F77-4F78-AA81-7177983BF13F}
+		{CF6C7908-8E4A-4C56-8DA3-9F7EF76A2C16} = {752AF8F4-59CE-49CB-8418-56A99351C446}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0D16A0B5-BBE7-4D7C-98FA-2D3CA271A6DA}
