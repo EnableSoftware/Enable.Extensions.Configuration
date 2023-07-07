@@ -25,7 +25,8 @@ public static class ConfigurationExtensions
             Branch.Value,
             BranchPath.Value,
             DatabaseServer.Value,
-            Environment.MachineName.ToLower());
+            Environment.MachineName.ToLower(),
+            Environment.GetEnvironmentVariable("ENABLEDEV_SERVICEBUSSHAREDACCESSKEY") ?? string.Empty);
 
         foreach (var entry in configuration.AsEnumerable())
         {
