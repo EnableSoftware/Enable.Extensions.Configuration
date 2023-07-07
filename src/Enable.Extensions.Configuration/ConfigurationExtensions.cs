@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Reflection;
+﻿using System.Reflection;
 using Microsoft.Extensions.Configuration;
 
 namespace Enable.Extensions.Configuration
@@ -11,9 +8,10 @@ namespace Enable.Extensions.Configuration
         private const string BranchFileName = "dev-branch.txt";
         private const string DatabaseServerFileName = "dev-database-server.txt";
 
-        private static readonly Lazy<string> Branch = new Lazy<string>(InitBranch);
-        private static readonly Lazy<string> BranchPath = new Lazy<string>(InitBranchPath);
-        private static readonly Lazy<string> DatabaseServer = new Lazy<string>(InitDatabaseServer);
+        private static readonly Lazy<string> Branch = new(InitBranch);
+        private static readonly Lazy<string> BranchPath = new(InitBranchPath);
+        private static readonly Lazy<string> DatabaseServer = new(InitDatabaseServer);
+        private static readonly ServiceBusConnectionStringSubstitution _serviceBusConnectionStringSubstitution = new(Environment.MachineName);
 
         /// <summary>
         /// Use during development to apply application configuration value overrides based on special placeholders.
@@ -35,17 +33,17 @@ namespace Enable.Extensions.Configuration
             }
         }
 
-        private static string ReplacePlaceholderValues(string settingValue, bool replaceSpaceWithUnderscore = true)
+        private static string? ReplacePlaceholderValues(string settingValue, bool replaceSpaceWithUnderscore = true)
         {
-            if (settingValue == null)
+            if (string.IsNullOrWhiteSpace(settingValue))
             {
-                return null;
+                return settingValue;
             }
 
-            var branch = Branch.Value ?? string.Empty;
-            var branchPath = BranchPath.Value ?? string.Empty;
-            var databaseServer = DatabaseServer.Value ?? string.Empty;
-            var machineName = Environment.MachineName ?? string.Empty;
+            var branch = Branch.Value;
+            var branchPath = BranchPath.Value;
+            var databaseServer = DatabaseServer.Value;
+            var machineName = Environment.MachineName;
 
             if (replaceSpaceWithUnderscore)
             {
@@ -60,6 +58,8 @@ namespace Enable.Extensions.Configuration
             settingValue = settingValue.Replace("{DatabaseServer}", databaseServer);
             settingValue = settingValue.Replace("{MachineName}", machineName);
 
+            settingValue = _serviceBusConnectionStringSubstitution.Substitute(settingValue);
+
             return settingValue;
         }
 
@@ -67,62 +67,56 @@ namespace Enable.Extensions.Configuration
         {
             var branchName = ReadDevelopmentEnvironmentValue(BranchFileName);
 
-            if (branchName != null)
+            if (branchName is null)
             {
-                return branchName;
+                throw new FileNotFoundException(
+                    $"DEVELOPMENT: A {BranchFileName} file was not found in your apps's file path. Please create a {BranchFileName} file containing the development branch name (e.g. \"2023-BS5\") in your source repository directory.",
+                    BranchFileName);
             }
 
-            ThrowBranchFileNotFound();
-
-            return null;
+            return branchName;
         }
 
         private static string InitBranchPath()
         {
             var branchFileInfo = GetDevelopmentEnvironmentFileInfo(BranchFileName);
 
-            if (branchFileInfo != null)
+            if (branchFileInfo is null)
             {
-                return branchFileInfo.DirectoryName;
+                throw new FileNotFoundException(
+                    $"DEVELOPMENT: A {BranchFileName} file was not found in your apps's file path. Please create a {BranchFileName} file containing the development branch name (e.g. \"2023-BS5\") in your source repository directory.",
+                    BranchFileName);
             }
 
-            ThrowBranchFileNotFound();
-
-            return null;
+            return branchFileInfo.DirectoryName;
         }
 
         private static string InitDatabaseServer()
         {
             var databaseServer = ReadDevelopmentEnvironmentValue(DatabaseServerFileName);
 
-            if (databaseServer != null)
+            if (databaseServer is null)
             {
-                return databaseServer;
+                throw new FileNotFoundException(
+                    $"DEVELOPMENT: A {DatabaseServerFileName} file was not found in your app's file path. Please create a {DatabaseServerFileName} file containing a database server name or IP address (e.g. \"(local)\") in your source repository directory.",
+                    BranchFileName);
             }
 
-            throw new FileNotFoundException(
-                $"DEVELOPMENT: A {DatabaseServerFileName} file was not found in your app's file path. Please create a {DatabaseServerFileName} file containing a database server name or IP address (e.g. \"(local)\") in your source repository directory.",
-                BranchFileName);
+            return databaseServer;
         }
 
-        private static string ReadDevelopmentEnvironmentValue(string fileName)
+        private static string? ReadDevelopmentEnvironmentValue(string fileName)
         {
-            var devFileInfo = GetDevelopmentEnvironmentFileInfo(fileName);
+            var file = GetDevelopmentEnvironmentFileInfo(fileName);
 
-            if (devFileInfo != null)
-            {
-                return File.ReadAllText(devFileInfo.FullName);
-            }
-
-            return null;
+            return file is not null ? File.ReadAllText(file.FullName) : null;
         }
 
-        private static FileInfo GetDevelopmentEnvironmentFileInfo(string fileName)
+        private static FileInfo? GetDevelopmentEnvironmentFileInfo(string fileName)
         {
-            var assemblyLocationUri = new Uri(Assembly.GetExecutingAssembly().GetName().CodeBase);
-            var assemblyLocation = assemblyLocationUri.LocalPath;
-            var directoryPath = Path.GetDirectoryName(assemblyLocation);
-            var directory = new DirectoryInfo(directoryPath);
+            var directory = new DirectoryInfo(
+                Path.GetDirectoryName(
+                    new Uri(Assembly.GetExecutingAssembly().GetName().CodeBase).LocalPath));
 
             do
             {
@@ -135,16 +129,9 @@ namespace Enable.Extensions.Configuration
 
                 directory = directory.Parent;
             }
-            while (directory != null);
+            while (directory is not null);
 
             return null;
-        }
-
-        private static void ThrowBranchFileNotFound()
-        {
-            throw new FileNotFoundException(
-                $"DEVELOPMENT: A {BranchFileName} file was not found in your apps's file path. Please create a {BranchFileName} file containing the development branch name (e.g. \"RC2.2\") in your source repository directory.",
-                BranchFileName);
         }
     }
 }
