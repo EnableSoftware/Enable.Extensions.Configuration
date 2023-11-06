@@ -2,27 +2,27 @@
 
 internal class ConfigurationValueSubstitution
 {
-    private readonly string _branch;
-    private readonly string _branchPath;
-    private readonly string _databaseServer;
+    private readonly Lazy<string> _branch;
+    private readonly Lazy<string> _branchPath;
+    private readonly Lazy<string> _databaseServer;
     private readonly string _machineName;
     private readonly string _serviceBusSharedAccessKey;
 
     public ConfigurationValueSubstitution(
-        string branch,
-        string branchPath,
-        string databaseServer,
+        Lazy<string> branch,
+        Lazy<string> branchPath,
+        Lazy<string> databaseServer,
         string machineName,
         string serviceBusSharedAccessKey)
     {
-        _branch = branch.Replace(' ', '_');
-        _branchPath = branchPath.Replace(' ', '_');
-        _databaseServer = databaseServer.Replace(' ', '_');
-        _machineName = machineName.Replace(' ', '_');
+        _branch = branch;
+        _branchPath = branchPath;
+        _databaseServer = databaseServer;
+        _machineName = machineName;
         _serviceBusSharedAccessKey = serviceBusSharedAccessKey;
     }
 
-    public string? Substitute(string settingValue)
+    public string Substitute(string settingValue)
     {
         if (string.IsNullOrWhiteSpace(settingValue))
         {
@@ -30,9 +30,9 @@ internal class ConfigurationValueSubstitution
         }
 
         return settingValue
-            .Replace("{Branch}", _branch)
-            .Replace("{BranchPath}", _branchPath)
-            .Replace("{DatabaseServer}", _databaseServer)
+            .ReplaceIfPresent("{Branch}", _branch)
+            .ReplaceIfPresent("{BranchPath}", _branchPath)
+            .ReplaceIfPresent("{DatabaseServer}", _databaseServer)
             .Replace("{MachineName}", _machineName)
             .Replace("{ServiceBusSharedAccessKey}", _serviceBusSharedAccessKey);
     }
